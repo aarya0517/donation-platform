@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <div class="flex space-x-4">
+            <a href="/donor/dashboard">
+                <button class="bg-white text-rose-600 border border-rose-600 px-4 py-2 rounded-md hover:bg-rose-50 transition-colors">Home</button>
+            </a>
+        </div>
+        <div class="flex space-x-4">
+            <!-- <a href="/donor/history">
+                <button class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700">History</button>
+            </a> -->
+            <a href="/auth/logout">
+                <button class="bg-white text-rose-600 border border-rose-600 px-4 py-2 rounded-md hover:bg-rose-50 transition-colors">Logout</button>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Dashboard Content -->
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-semibold mb-4">Welcome, <%= user.fullname %>!</h1>
+        
+        <!-- Stats -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="p-4 bg-blue-100 rounded-lg text-center">
+                <h2 class="text-xl font-semibold">Total Donations</h2>
+                <p class="text-2xl font-bold"><%= user.totalDonations || 0 %></p>
+            </div>
+            <div class="p-4 bg-green-100 rounded-lg text-center">
+                <h2 class="text-xl font-semibold">Total Amount Donated</h2>
+                <p class="text-2xl font-bold">₹<%= user.totalAmountDonated || 0 %></p>
+            </div>
+        </div>
+        
+        <!-- Recent Donations
+        <h2 class="text-xl font-semibold mb-2">Recent Donations</h2>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">Date</th>
+                    <th class="border p-2">Amount</th>
+                    <th class="border p-2">Recipient</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (donations.length > 0) { %>
+                    <% donations.forEach(donation => { %>
+                        <tr>
+                            <td class="border p-2"><%= donation.date.toISOString().split('T')[0] %></td>
+                            <td class="border p-2">₹<%= donation.amount %></td>
+                            <td class="border p-2"><%= donation.recipient %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="3" class="border p-2 text-center text-gray-500">No donations made yet.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table> -->
+        
+        <!-- Donate Now Button -->
+        <div class="mt-6 text-center">
+            <a href="/donor/donate">
+                <button class="px-6 py-3 bg-rose-600 text-white rounded-lg hover:bg-rose-700 border border-black">Donate Now</button>
+        </div>
+    </div>
+</body>
+</html>

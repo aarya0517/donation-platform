@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Add your CSS file -->
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>Donation Requests Assigned to Shopkeepers</h2>
+
+    <% if (orders.length === 0) { %>
+        <p>No donation requests found.</p>
+    <% } else { %>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Donor</th>
+                    <th>Shopkeeper</th>
+                    <th>Institute</th>
+                    <th>Items</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                    <tr>
+                        <td><%= order._id %></td>
+                        <td>
+                            <%= order.donorId ? order.donorId.name : 'N/A' %> 
+                            (<%= order.donorId ? order.donorId.email : 'N/A' %>)
+                        </td>
+                        <td>
+                            <%= order.shopkeeperId ? order.shopkeeperId.name : 'N/A' %> 
+                            (<%= order.shopkeeperId ? order.shopkeeperId.email : 'N/A' %>)
+                        </td>
+                        <td>
+                            <%= order.instituteId ? order.instituteId.name : 'N/A' %> 
+                            (<%= order.instituteId ? order.instituteId.email : 'N/A' %>)
+                        </td>
+                        <td>
+                            <ul>
+                                <% order.items.forEach(item => { %>
+                                    <li><%= item.itemName %> - <%= item.quantity %> <%= item.unit %></li>
+                                <% }) %>
+                            </ul>
+                        </td>
+                        <td>₹<%= order.totalAmount %></td>
+                        <td><%= order.status %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

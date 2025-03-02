@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Page</title>
+        <link rel="stylesheet" href="./output.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+            body {
+              font-family: 'Inter', sans-serif;
+            }
+          </style>
+        <script src="https://unpkg.com/lucide@latest"></script>
+    </head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900">
+          Create your account
+        </h2>
+      </div>
+  
+      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form class="space-y-6" action="#" method="POST">
+            <div>
+              <label for="fullname" class="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <div class="mt-1">
+                <input id="fullname" name="fullname" type="text" autocomplete="name" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm">
+              </div>
+            </div>
+  
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <div class="mt-1">
+                <input id="email" name="email" type="email" autocomplete="email" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm">
+              </div>
+            </div>
+  
+            <div>
+              <label for="password" class="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div class="mt-1 relative">
+                <input id="password" name="password" type="password" autocomplete="new-password" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm">
+                <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500">
+                  <i data-lucide="eye" class="h-5 w-5"></i>
+                </button>
+              </div>
+              <p class="mt-1 text-xs text-gray-500">Password must be at least 8 characters long</p>
+            </div>
+  
+            <div>
+              <label for="confirm-password" class="block text-sm font-medium text-gray-700">
+                Confirm Password
+              </label>
+              <div class="mt-1 relative">
+                <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm">
+                <button type="button" id="toggle-confirm-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500">
+                  <i data-lucide="eye" class="h-5 w-5"></i>
+                </button>
+              </div>
+              <p id="password-match-message" class="mt-1 text-xs text-gray-500 hidden">Passwords do not match</p>
+            </div>
+  
+            <div>
+              <label for="role" class="block text-sm font-medium text-gray-700">
+                I am a
+              </label>
+              <div class="mt-1">
+                <select id="role" name="role" required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm">
+                  <option value="" disabled selected>Select your role</option>
+                  <option value="donor">Donor</option>
+                  <option value="institute">Institute</option>
+                  <option value="shopkeeper">Shopkeeper</option>
+                </select>
+              </div>
+            </div>
+  
+  
+            <div>
+              <button type="submit" id="signup-button"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
+                Sign up
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+      
+      // Password visibility toggle
+      document.getElementById('toggle-password').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = this.querySelector('[data-lucide]');
+        
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.remove();
+          this.innerHTML = '<i data-lucide="eye-off" class="h-5 w-5"></i>';
+        } else {
+          passwordInput.type = 'password';
+          eyeIcon.remove();
+          this.innerHTML = '<i data-lucide="eye" class="h-5 w-5"></i>';
+        }
+        lucide.createIcons();
+      });
+      
+      // Confirm password visibility toggle
+      document.getElementById('toggle-confirm-password').addEventListener('click', function() {
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const eyeIcon = this.querySelector('[data-lucide]');
+        
+        if (confirmPasswordInput.type === 'password') {
+          confirmPasswordInput.type = 'text';
+          eyeIcon.remove();
+          this.innerHTML = '<i data-lucide="eye-off" class="h-5 w-5"></i>';
+        } else {
+          confirmPasswordInput.type = 'password';
+          eyeIcon.remove();
+          this.innerHTML = '<i data-lucide="eye" class="h-5 w-5"></i>';
+        }
+        lucide.createIcons();
+      });
+      
+      // Password match validation
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirm-password');
+      const passwordMatchMessage = document.getElementById('password-match-message');
+      const signupButton = document.getElementById('signup-button');
+      
+      function validatePasswordMatch() {
+        if (confirmPassword.value && password.value !== confirmPassword.value) {
+          passwordMatchMessage.classList.remove('hidden');
+          passwordMatchMessage.classList.remove('text-gray-500');
+          passwordMatchMessage.classList.add('text-red-500');
+          passwordMatchMessage.textContent = 'Passwords do not match';
+          return false;
+        } else if (confirmPassword.value && password.value === confirmPassword.value) {
+          passwordMatchMessage.classList.remove('hidden');
+          passwordMatchMessage.classList.remove('text-red-500');
+          passwordMatchMessage.classList.add('text-green-500');
+          passwordMatchMessage.textContent = 'Passwords match';
+          return true;
+        } else {
+          passwordMatchMessage.classList.add('hidden');
+          return false;
+        }
+      }
+      
+      confirmPassword.addEventListener('input', validatePasswordMatch);
+      password.addEventListener('input', function() {
+        if (confirmPassword.value) {
+          validatePasswordMatch();
+        }
+      });
+      
+      // Form validation
+      document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Basic validation
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const role = document.getElementById('role').value;
+        const terms = document.getElementById('terms').checked;
+        
+        if (!fullname || !email || !password.value || !confirmPassword.value || !role || !terms) {
+          alert('Please fill in all required fields');
+          return;
+        }
+        
+        if (password.value.length < 8) {
+          alert('Password must be at least 8 characters long');
+          return;
+        }
+        
+        if (!validatePasswordMatch()) {
+          alert('Passwords do not match');
+          return;
+        }
+        
+        // If all validation passes, you would normally submit the form
+        alert('Signup successful! Redirecting to login...');
+        window.location.href = 'login.html';
+      });
+    </script>
+  </body>
+</html>

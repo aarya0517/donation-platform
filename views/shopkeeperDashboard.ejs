@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop User - Donation Requests</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            300: '#86efac',
+                            400: '#4ade80'
+                        },
+                        redrose: {
+                            300: '#ffb3b3',
+                            500: '#e63946'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-white text-gray-900">
+    <div class="min-h-screen bg-white">
+        <nav class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="ml-2 text-xl font-bold text-gray-800">Handout to Needy</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="/shopkeeper/approved" class="text-gray-800 font-semibold px-4 py-2 border border-green-800 rounded-md hover:bg-green-200 transition">Accepted</a>
+                        <a href="/auth/logout">
+                            <button id="logout-btn" class="bg-redrose-500 text-white px-4 py-2 rounded-md hover:bg-red-700">Logout</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h1 class="text-2xl font-bold text-gray-900 mb-4">Pending Orders</h1>
+                <% if (pendingOrders.length > 0) { %>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+                            <thead>
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 bg-gray-100">Donor Name</th>
+                                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 bg-gray-100">Institute Name</th>
+                                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 bg-gray-100">Items</th>
+                                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 bg-gray-100">Total Amount</th>
+                                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 bg-gray-100">Status</th>
+                                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 bg-gray-100">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% pendingOrders.forEach(order => { %>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="px-6 py-4 text-sm text-gray-800"><%= order.donorId ? order.donorId.fullname : 'Unknown Donor' %></td>
+                                        <td class="px-6 py-4 text-sm text-gray-800"><%= order.instituteId ? order.instituteId.fullname : 'Unknown Institute' %></td>
+                                        <td class="px-6 py-4 text-sm text-gray-800">
+                                            <ul>
+                                                <% order.items.forEach(item => { %>
+                                                    <li><%= item.itemName %> - <%= item.quantity %> <%= item.unit %></li>
+                                                <% }) %>
+                                            </ul>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-800">₹<%= order.totalAmount %></td>
+                                        <td class="px-6 py-4 text-sm text-gray-800">
+                                            <span class="px-3 py-1 rounded-full text-xs <%= order.status === 'Pending' ? 'bg-redrose-500 text-white' : 'bg-green-300 text-green-900' %>">
+                                                <%= order.status %>
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-800">
+                                            <form action="/shopkeeper/approved/<%= order._id %>" method="POST" class="inline">
+                                                <button type="submit" class="bg-green-400 text-white px-4 py-2 rounded-md hover:bg-green-500">Accept</button>
+                                            </form>
+                                            <form action="/shopkeeper/orders/reject/<%= order._id %>" method="POST" class="inline">
+                                                <button type="submit" class="bg-redrose-500 text-white px-4 py-2 rounded-md hover:bg-redrose-700 ml-2">Reject</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <p class="text-gray-700">No pending orders available.</p>
+                <% } %>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.querySelector('#logout-btn')?.addEventListener('click', () => {
+            alert('Logging out...')
+        });
+    </script>
+</body>
+
+</html>

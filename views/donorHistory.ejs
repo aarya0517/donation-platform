@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation History</title>
+    <link rel="stylesheet" href="/path/to/your/styles.css"> <!-- Update with your stylesheet path -->
+</head>
+<body>
+    <header>
+        <h1>Donation History</h1>
+        <p>Welcome, <%= user.fullname %>!</p>
+    </header>
+    <main>
+        <% if (donations.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Institute</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% donations.forEach(donation => { %>
+                        <tr>
+                            <td><%= donation.instituteId.fullname %></td>
+                            <td><%= donation.amount %></td>
+                            <td><%= donation.createdAt.toDateString() %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No donations found.</p>
+        <% } %>
+    </main>
+    <footer>
+        <a href="/donor/dashboard">Back to Dashboard</a>
+    </footer>
+</body>
+</html>

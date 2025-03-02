@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donor Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md p-4 flex justify-between items-center fixed w-full">
+    <a href="/donor/dashboard" class="text-rose-500 font-semibold">Home</a>
+    <div class="space-x-4">
+      <a href="/donor/history" class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700">History</a>
+      <a href="/auth/logout" class="text-rose-500 font-semibold">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="pt-24 px-4">
+    <h1 class="text-2xl font-bold text-center mb-8">Donation Requests</h1>
+
+    <!-- Donation Requests Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+      <% let hasRequests = false; %>
+      <% requests.forEach(request => { %>
+        <% if (request.status !== "completed") { hasRequests = true; %>
+          <div class="bg-white p-6 rounded-lg shadow-lg border">
+            <p class="text-lg ">Institution: <%= request.instituteId.fullname %></p>
+            <p><strong>Reason:</strong> <%= request.reason %></p>
+
+            <!-- Iterate over the items array -->
+            <p><strong>Items Requested:</strong></p>
+            <ul class="list-disc ml-5">
+              <% request.items.forEach(item => { %>
+                <li><%= item.itemName %> - <%= item.quantity %> <%= item.unit %></li>
+              <% }); %>
+            </ul>
+
+            <p><strong>Status:</strong> 
+              <span class="<%= request.status === 'pending' ? 'text-red-500' : 'text-orange-500' %> font-semibold">
+                <%= request.status === 'pending' ? 'Pending' : 'Partially Fulfilled' %>
+              </span>
+            </p>
+            <p><strong>Amount:</strong> <%= request.amount %> rs</p>
+
+            <% if (!donatedRequestIds.includes(request._id.toString())) { %>
+              <form action="/donor/donate/request/<%= request._id %>" method="POST">
+                <button class="w-full px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-700">Donate</button>
+              </form>
+            <% } else { %>
+              <p class="text-green-500 font-semibold text-center mt-2">Already Donated</p>
+            <% } %>
+          </div>
+        <% } %>
+      <% }); %>
+
+      <% if (!hasRequests) { %>
+        <div class="col-span-full text-center text-gray-500">No donation requests available.</div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

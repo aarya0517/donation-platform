@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institute | Request</title>
+    <link rel="stylesheet" href="/output.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+    </style>
+     <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50"> 
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <i data-lucide="heart" class="h-8 w-8 text-rose-500"></i>
+                <span class="ml-2 text-xl font-bold text-gray-800">DonateConnect</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/institute/dashboard" class="text-gray-800 font-semibold px-4 py-2 border border-gray-800 rounded-md hover:bg-gray-200 transition">Dashboard</a>
+                <a href="/auth/logout">
+                    <button class="bg-rose-500 text-white px-4 py-2 rounded-md hover:bg-rose-700 transition">
+                        Logout
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="min-h-60 flex items-center justify-center bg-gray-50">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg mt-7">
+            <h2 class="text-2xl font-normal text-center text-gray-900">Request an Item</h2>
+            <form action="/institute/request" method="POST" class="mt-4">
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold">Institute Name and Email</label>
+                    <input type="text" name="institute_name" value="<%= fullname %> | <%= email %>" 
+                           class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 bg-white text-gray-900" 
+                           disabled>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold">Item Name</label>
+                    <select name="item_name" required class="w-full px-4 py-2 border-2 border-black rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800">
+                        <option value="">Select an Item</option>
+                        <option value="Rice">Rice</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value="Dal">Dal</option>
+                        <option value="Sugar">Sugar</option>
+                        <option value="Milk">Milk</option>
+                        <option value="Oil">Oil</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold">Quantity Needed</label>
+                    <input type="number" name="quantity" required min="1" 
+                           class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 bg-white text-gray-900">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold">Unit</label>
+                    <select name="unit" required class="w-full px-4 py-2 border-2 border-black rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800">
+                        <option value="">Select a Unit</option>
+                        <option value="kg">kg</option>
+                        <option value="liters">liters</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold">Reason for Request</label>
+                    <textarea name="reason" required rows="3" 
+                              class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 bg-white text-gray-900"></textarea>
+                </div>
+                
+                <!-- Fixed Submit Button -->
+                <button type="submit" class="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-rose-700 transition">
+                    Submit Request
+                </button>
+
+            </form>
+        </div>
+    </div>
+    <script>
+         lucide.createIcons();
+    </script>
+</body>
+</html>
